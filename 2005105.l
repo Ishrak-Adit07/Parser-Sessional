@@ -12,8 +12,10 @@
 #include<string>
 #include<fstream>
 
+//2005105
+//test
 #include "2005105_Symboltable.cpp"
-#include "test.tab.h"
+#include "2005105.tab.h"
 
 using namespace std;
 

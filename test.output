@@ -1,3 +1,11 @@
+Nonterminals useless in grammar
+
+    func_definition
+    embedded_out_def
+    compound_statement
+    embedded_in
+
+
 Terminals unused in grammar
 
     CONST_INT
@@ -48,6 +56,18 @@ Terminals unused in grammar
     LOWER_THAN_ELSE
 
 
+Rules useless in grammar
+
+   17 func_definition: type_specifier id embedded LPAREN parameter_list RPAREN embedded_out_def compound_statement
+   18                | type_specifier id embedded LPAREN RPAREN embedded_out_def compound_statement
+
+   19 embedded_out_def: ε
+
+   20 compound_statement: LCURL embedded_in RCURL
+
+   21 embedded_in: ε
+
+
 Grammar
 
     0 $accept: start $end
@@ -59,21 +79,23 @@ Grammar
 
     4 unit: func_declaration
 
-    5 func_declaration: type_specifier ID embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
-    6                 | type_specifier ID embedded LPAREN RPAREN embedded_out_dec SEMICOLON
+    5 func_declaration: type_specifier id embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
+    6                 | type_specifier id embedded LPAREN RPAREN embedded_out_dec SEMICOLON
 
     7 embedded: ε
 
     8 embedded_out_dec: ε
 
-    9 parameter_list: parameter_list COMMA type_specifier ID
+    9 parameter_list: parameter_list COMMA type_specifier id
    10               | parameter_list COMMA type_specifier
-   11               | type_specifier ID
+   11               | type_specifier id
    12               | type_specifier
 
    13 type_specifier: INT
    14               | FLOAT
    15               | VOID
+
+   16 id: ID
 
 
 Terminals, with rules where they appear
@@ -82,7 +104,7 @@ Terminals, with rules where they appear
     error (256)
     CONST_INT (258)
     CONST_FLOAT (259)
-    ID (260) 5 6 9 11
+    ID (260) 16
     DO (261)
     SWITCH (262)
     DEFAULT (263)
@@ -164,6 +186,9 @@ Nonterminals, with rules where they appear
     type_specifier (65)
         on left: 13 14 15
         on right: 5 6 9 10 11 12
+    id (66)
+        on left: 16
+        on right: 5 6 9 11
 
 
 State 0
@@ -241,10 +266,12 @@ State 7
 
 State 8
 
-    5 func_declaration: type_specifier • ID embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
-    6                 | type_specifier • ID embedded LPAREN RPAREN embedded_out_dec SEMICOLON
+    5 func_declaration: type_specifier • id embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
+    6                 | type_specifier • id embedded LPAREN RPAREN embedded_out_dec SEMICOLON
 
     ID  shift, and go to state 11
+
+    id  go to state 12
 
 
 State 9
@@ -263,133 +290,144 @@ State 10
 
 State 11
 
-    5 func_declaration: type_specifier ID • embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
-    6                 | type_specifier ID • embedded LPAREN RPAREN embedded_out_dec SEMICOLON
+   16 id: ID •
 
-    $default  reduce using rule 7 (embedded)
-
-    embedded  go to state 12
+    $default  reduce using rule 16 (id)
 
 
 State 12
 
-    5 func_declaration: type_specifier ID embedded • LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
-    6                 | type_specifier ID embedded • LPAREN RPAREN embedded_out_dec SEMICOLON
+    5 func_declaration: type_specifier id • embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
+    6                 | type_specifier id • embedded LPAREN RPAREN embedded_out_dec SEMICOLON
 
-    LPAREN  shift, and go to state 13
+    $default  reduce using rule 7 (embedded)
+
+    embedded  go to state 13
 
 
 State 13
 
-    5 func_declaration: type_specifier ID embedded LPAREN • parameter_list RPAREN embedded_out_dec SEMICOLON
-    6                 | type_specifier ID embedded LPAREN • RPAREN embedded_out_dec SEMICOLON
+    5 func_declaration: type_specifier id embedded • LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON
+    6                 | type_specifier id embedded • LPAREN RPAREN embedded_out_dec SEMICOLON
 
-    INT     shift, and go to state 1
-    FLOAT   shift, and go to state 2
-    VOID    shift, and go to state 3
-    RPAREN  shift, and go to state 14
-
-    parameter_list  go to state 15
-    type_specifier  go to state 16
+    LPAREN  shift, and go to state 14
 
 
 State 14
 
-    6 func_declaration: type_specifier ID embedded LPAREN RPAREN • embedded_out_dec SEMICOLON
+    5 func_declaration: type_specifier id embedded LPAREN • parameter_list RPAREN embedded_out_dec SEMICOLON
+    6                 | type_specifier id embedded LPAREN • RPAREN embedded_out_dec SEMICOLON
 
-    $default  reduce using rule 8 (embedded_out_dec)
+    INT     shift, and go to state 1
+    FLOAT   shift, and go to state 2
+    VOID    shift, and go to state 3
+    RPAREN  shift, and go to state 15
 
-    embedded_out_dec  go to state 17
+    parameter_list  go to state 16
+    type_specifier  go to state 17
 
 
 State 15
 
-    5 func_declaration: type_specifier ID embedded LPAREN parameter_list • RPAREN embedded_out_dec SEMICOLON
-    9 parameter_list: parameter_list • COMMA type_specifier ID
-   10               | parameter_list • COMMA type_specifier
+    6 func_declaration: type_specifier id embedded LPAREN RPAREN • embedded_out_dec SEMICOLON
 
-    RPAREN  shift, and go to state 18
-    COMMA   shift, and go to state 19
+    $default  reduce using rule 8 (embedded_out_dec)
+
+    embedded_out_dec  go to state 18
 
 
 State 16
 
-   11 parameter_list: type_specifier • ID
-   12               | type_specifier •
+    5 func_declaration: type_specifier id embedded LPAREN parameter_list • RPAREN embedded_out_dec SEMICOLON
+    9 parameter_list: parameter_list • COMMA type_specifier id
+   10               | parameter_list • COMMA type_specifier
 
-    ID  shift, and go to state 20
-
-    $default  reduce using rule 12 (parameter_list)
+    RPAREN  shift, and go to state 19
+    COMMA   shift, and go to state 20
 
 
 State 17
 
-    6 func_declaration: type_specifier ID embedded LPAREN RPAREN embedded_out_dec • SEMICOLON
+   11 parameter_list: type_specifier • id
+   12               | type_specifier •
 
-    SEMICOLON  shift, and go to state 21
+    ID  shift, and go to state 11
+
+    $default  reduce using rule 12 (parameter_list)
+
+    id  go to state 21
 
 
 State 18
 
-    5 func_declaration: type_specifier ID embedded LPAREN parameter_list RPAREN • embedded_out_dec SEMICOLON
+    6 func_declaration: type_specifier id embedded LPAREN RPAREN embedded_out_dec • SEMICOLON
 
-    $default  reduce using rule 8 (embedded_out_dec)
-
-    embedded_out_dec  go to state 22
+    SEMICOLON  shift, and go to state 22
 
 
 State 19
 
-    9 parameter_list: parameter_list COMMA • type_specifier ID
+    5 func_declaration: type_specifier id embedded LPAREN parameter_list RPAREN • embedded_out_dec SEMICOLON
+
+    $default  reduce using rule 8 (embedded_out_dec)
+
+    embedded_out_dec  go to state 23
+
+
+State 20
+
+    9 parameter_list: parameter_list COMMA • type_specifier id
    10               | parameter_list COMMA • type_specifier
 
     INT    shift, and go to state 1
     FLOAT  shift, and go to state 2
     VOID   shift, and go to state 3
 
-    type_specifier  go to state 23
-
-
-State 20
-
-   11 parameter_list: type_specifier ID •
-
-    $default  reduce using rule 11 (parameter_list)
+    type_specifier  go to state 24
 
 
 State 21
 
-    6 func_declaration: type_specifier ID embedded LPAREN RPAREN embedded_out_dec SEMICOLON •
+   11 parameter_list: type_specifier id •
 
-    $default  reduce using rule 6 (func_declaration)
+    $default  reduce using rule 11 (parameter_list)
 
 
 State 22
 
-    5 func_declaration: type_specifier ID embedded LPAREN parameter_list RPAREN embedded_out_dec • SEMICOLON
+    6 func_declaration: type_specifier id embedded LPAREN RPAREN embedded_out_dec SEMICOLON •
 
-    SEMICOLON  shift, and go to state 24
+    $default  reduce using rule 6 (func_declaration)
 
 
 State 23
 
-    9 parameter_list: parameter_list COMMA type_specifier • ID
-   10               | parameter_list COMMA type_specifier •
+    5 func_declaration: type_specifier id embedded LPAREN parameter_list RPAREN embedded_out_dec • SEMICOLON
 
-    ID  shift, and go to state 25
-
-    $default  reduce using rule 10 (parameter_list)
+    SEMICOLON  shift, and go to state 25
 
 
 State 24
 
-    5 func_declaration: type_specifier ID embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON •
+    9 parameter_list: parameter_list COMMA type_specifier • id
+   10               | parameter_list COMMA type_specifier •
 
-    $default  reduce using rule 5 (func_declaration)
+    ID  shift, and go to state 11
+
+    $default  reduce using rule 10 (parameter_list)
+
+    id  go to state 26
 
 
 State 25
 
-    9 parameter_list: parameter_list COMMA type_specifier ID •
+    5 func_declaration: type_specifier id embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON •
+
+    $default  reduce using rule 5 (func_declaration)
+
+
+State 26
+
+    9 parameter_list: parameter_list COMMA type_specifier id •
 
     $default  reduce using rule 9 (parameter_list)

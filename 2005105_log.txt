@@ -2,26 +2,19 @@ At line no: 1 type_specifier: INT
 
 int
 
-At line no: 1 type_specifier: VOID
+At line no: 1 type_specifier: INT
 
-void
+int
 
-At line no: 1 parameter_list: type_specifier
+At line no: 1 parameter_list: type_specifier ID
 
-main
-At line no: 1 syntax error
+add a
+At line no: 1 type_specifier: INT
 
-ScopeTable# 1
-	1 --> (,ID)
-	2
-	3
-	4
-	5
-	6
-	7
-	8
-	9
-	10
-Total Lines: 1
+int
 
-Total Errors: 1
+At line no: 1 parameter_list: parameter_list COMMA type_specifier ID
+
+add a,a b
+At line no: 1 func_declaration: type_specifier ID LPAREN parameter_list RPAREN SEMICOLON
+

@@ -255,7 +255,8 @@ enum yysymbol_kind_t
   YYSYMBOL_embedded = 62,                  /* embedded  */
   YYSYMBOL_embedded_out_dec = 63,          /* embedded_out_dec  */
   YYSYMBOL_parameter_list = 64,            /* parameter_list  */
-  YYSYMBOL_type_specifier = 65             /* type_specifier  */
+  YYSYMBOL_type_specifier = 65,            /* type_specifier  */
+  YYSYMBOL_id = 66                         /* id  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -588,11 +589,11 @@ union yyalloc
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  57
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  9
+#define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  16
+#define YYNRULES  17
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  26
+#define YYNSTATES  27
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   311
@@ -647,8 +648,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   116,   116,   124,   130,   144,   158,   167,   179,   186,
-     201,   213,   225,   237,   251,   258,   265
+       0,   116,   116,   124,   130,   145,   161,   170,   199,   205,
+     303,   315,   327,   341,   438,   447,   455,   465
 };
 #endif
 
@@ -677,7 +678,7 @@ static const char *const yytname[] =
   "MULTICHAR_CONST_CHAR", "UNRECOGNIZED_CHAR",
   "INVALID_ID_SUFFIX_NUM_PREFIX", "LOWER_THAN_ELSE", "$accept", "start",
   "program", "unit", "func_declaration", "embedded", "embedded_out_dec",
-  "parameter_list", "type_specifier", YY_NULLPTR
+  "parameter_list", "type_specifier", "id", YY_NULLPTR
 };
 
 static const char *
@@ -687,7 +688,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-31)
+#define YYPACT_NINF (-32)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -701,9 +702,9 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -7,   -31,   -31,   -31,     4,    -7,   -31,   -31,     6,   -31,
-     -31,   -31,   -22,   -13,   -31,   -30,     8,   -27,   -31,    -7,
-     -31,   -31,   -26,    11,   -31,   -31
+      -7,   -32,   -32,   -32,    12,    -7,   -32,   -32,     8,   -32,
+     -32,   -32,   -32,   -20,   -13,   -32,   -31,     8,   -26,   -32,
+      -7,   -32,   -32,   -25,     8,   -32,   -32
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -712,20 +713,20 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,    14,    15,    16,     0,     2,     4,     5,     0,     1,
-       3,     8,     0,     0,     9,     0,    13,     0,     9,     0,
-      12,     7,     0,    11,     6,    10
+       3,    17,     8,     0,     0,     9,     0,    13,     0,     9,
+       0,    12,     7,     0,    11,     6,    10
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -31,   -31,   -31,    12,   -31,   -31,     0,   -31,   -10
+     -32,   -32,   -32,    13,   -32,   -32,    -2,   -32,    -9,   -14
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     4,     5,     6,     7,    12,    17,    15,     8
+       0,     4,     5,     6,     7,    13,    18,    16,     8,    12
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -733,15 +734,15 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     2,     3,    16,     9,    18,     1,     2,     3,    23,
-      19,    11,    13,    20,    21,    24,    25,    10,    22,     0,
-       0,     0,    14
+       1,     2,     3,    21,    19,    17,     1,     2,     3,    20,
+      26,    24,     9,    11,    14,    22,    25,    23,    10,     0,
+       0,     0,    15
 };
 
 static const yytype_int8 yycheck[] =
 {
-      13,    14,    15,    13,     0,    35,    13,    14,    15,    19,
-      40,     5,    34,     5,    41,    41,     5,     5,    18,    -1,
+      13,    14,    15,    17,    35,    14,    13,    14,    15,    40,
+      24,    20,     0,     5,    34,    41,    41,    19,     5,    -1,
       -1,    -1,    35
 };
 
@@ -750,22 +751,22 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,    13,    14,    15,    58,    59,    60,    61,    65,     0,
-      60,     5,    62,    34,    35,    64,    65,    63,    35,    40,
-       5,    41,    63,    65,    41,     5
+      60,     5,    66,    62,    34,    35,    64,    65,    63,    35,
+      40,    66,    41,    63,    65,    41,    66
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    57,    58,    59,    59,    60,    61,    61,    62,    63,
-      64,    64,    64,    64,    65,    65,    65
+      64,    64,    64,    64,    65,    65,    65,    66
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     8,     7,     0,     0,
-       4,     3,     2,     1,     1,     1,     1
+       4,     3,     2,     1,     1,     1,     1,     1
 };
 
 
@@ -1236,7 +1237,7 @@ yyreduce:
         yyval = new SymbolInfo(yyvsp[0]->getName(), "NON_TERMINAL");
         logStream << yyvsp[0]->getName() << "\n"  << endl;
 	}
-#line 1240 "test.tab.c"
+#line 1241 "test.tab.c"
     break;
 
   case 3: /* program: program unit  */
@@ -1247,7 +1248,7 @@ yyreduce:
         yyval = new SymbolInfo((string)yyvsp[-1]->getName()+(string)yyvsp[0]->getName(), "NON_TERMINAL");
         logStream << yyval->getName() << "\n"  << endl;
     }
-#line 1251 "test.tab.c"
+#line 1252 "test.tab.c"
     break;
 
   case 4: /* program: unit  */
@@ -1258,52 +1259,51 @@ yyreduce:
         yyval = new SymbolInfo(yyvsp[0]->getName(), "NON_TERMINAL");
         logStream << yyvsp[0]->getName() << "\n"  << endl;
     }
-#line 1262 "test.tab.c"
+#line 1263 "test.tab.c"
     break;
 
   case 5: /* unit: func_declaration  */
-#line 144 "test.y"
-                      {
+#line 145 "test.y"
+                        {
         logStream << "At line no: " << line_count << " unit: func_declaration" << "\n"  << endl;
 
         yyval = new SymbolInfo(yyvsp[0]->getName(), "NON_TERMINAL");
         logStream << yyvsp[0]->getName() << "\n"  << endl;
     }
-#line 1273 "test.tab.c"
+#line 1274 "test.tab.c"
     break;
 
-  case 6: /* func_declaration: type_specifier ID embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON  */
-#line 158 "test.y"
+  case 6: /* func_declaration: type_specifier id embedded LPAREN parameter_list RPAREN embedded_out_dec SEMICOLON  */
+#line 161 "test.y"
                                                                                                      {
         logStream << "At line no: " << line_count << " func_declaration: type_specifier ID LPAREN parameter_list RPAREN SEMICOLON" << "\n"  << endl;
 
         yyval = new SymbolInfo((string)yyvsp[-7]->getName()+(string)" "+(string)yyvsp[-6]->getName()+(string)"("+(string)yyvsp[-3]->getName()+(string)")"+(string)";"+(string)"\n"+(string)"\n", "NON_TERMINAL");
         logStream << yyval->getName() << endl;
 
-        name = (string)yyvsp[-6]->getName();
+        //name = (string)$2->getName();
         parameterList.clear();
     }
-#line 1287 "test.tab.c"
+#line 1288 "test.tab.c"
     break;
 
-  case 7: /* func_declaration: type_specifier ID embedded LPAREN RPAREN embedded_out_dec SEMICOLON  */
-#line 167 "test.y"
+  case 7: /* func_declaration: type_specifier id embedded LPAREN RPAREN embedded_out_dec SEMICOLON  */
+#line 170 "test.y"
                                                                           {
         logStream << "At line no: " << line_count << " func_declaration: type_specifier ID LPAREN RPAREN SEMICOLON" << "\n"  << endl;
 
         yyval = new SymbolInfo((string)yyvsp[-6]->getName()+(string)" "+(string)yyvsp[-5]->getName()+(string)"("+(string)")"+(string)";"+(string)"\n"+(string)"\n", "NON_TERMINAL");
         logStream << yyval->getName() << endl;
 
-        name = (string)yyvsp[-5]->getName();
+        //name = (string)$2->getName();
         parameterList.clear();
     }
-#line 1301 "test.tab.c"
+#line 1302 "test.tab.c"
     break;
 
   case 8: /* embedded: %empty  */
-#line 179 "test.y"
+#line 199 "test.y"
           {
-            /* NOTICE: embedded action */
             type_final = type;
             name_final = name;
     }
@@ -1311,7 +1311,7 @@ yyreduce:
     break;
 
   case 9: /* embedded_out_dec: %empty  */
-#line 186 "test.y"
+#line 205 "test.y"
                   {
 
             SymbolInfo* lookupNode = symbolTable->Lookup(name_final);
@@ -1328,8 +1328,8 @@ yyreduce:
 #line 1329 "test.tab.c"
     break;
 
-  case 10: /* parameter_list: parameter_list COMMA type_specifier ID  */
-#line 201 "test.y"
+  case 10: /* parameter_list: parameter_list COMMA type_specifier id  */
+#line 303 "test.y"
                                                        {
             logStream << "At line no: " << line_count << " parameter_list: parameter_list COMMA type_specifier ID" << "\n"  << endl;
 
@@ -1346,7 +1346,7 @@ yyreduce:
     break;
 
   case 11: /* parameter_list: parameter_list COMMA type_specifier  */
-#line 213 "test.y"
+#line 315 "test.y"
                                               {
             logStream << "At line no: " << line_count << " parameter_list: parameter_list COMMA type_specifier" << "\n"  << endl;
 
@@ -1362,10 +1362,12 @@ yyreduce:
 #line 1363 "test.tab.c"
     break;
 
-  case 12: /* parameter_list: type_specifier ID  */
-#line 225 "test.y"
+  case 12: /* parameter_list: type_specifier id  */
+#line 327 "test.y"
                             {
             logStream << "At line no: " << line_count << " parameter_list: type_specifier ID" << "\n"  << endl;
+
+            logStream << yyvsp[-1]->getName() << endl;
 
             yyval = new SymbolInfo((string)yyvsp[-1]->getName()+(string)" "+(string)yyvsp[0]->getName(), "NON_TERMINAL");
             logStream << yyval->getName() << endl;
@@ -1376,11 +1378,11 @@ yyreduce:
 
             parameterList.push_back(tempParameter);
     }
-#line 1380 "test.tab.c"
+#line 1382 "test.tab.c"
     break;
 
   case 13: /* parameter_list: type_specifier  */
-#line 237 "test.y"
+#line 341 "test.y"
                          {
             logStream << "At line no: " << line_count << " parameter_list: type_specifier" << "\n"  << endl;
 
@@ -1393,47 +1395,61 @@ yyreduce:
 
             parameterList.push_back(tempParameter);
     }
-#line 1397 "test.tab.c"
+#line 1399 "test.tab.c"
     break;
 
   case 14: /* type_specifier: INT  */
-#line 251 "test.y"
+#line 438 "test.y"
                     {
+    logStream<<"Exprelliurmus"<<endl;
             //$$ = new SymbolInfo("int", "NON_TERMINAL");
             logStream << "At line no: " << line_count << " type_specifier: INT" << "\n"  << endl;
             logStream << "int" << "\n"  << endl;
 
             type = "int";
+            
     }
-#line 1409 "test.tab.c"
+#line 1413 "test.tab.c"
     break;
 
   case 15: /* type_specifier: FLOAT  */
-#line 258 "test.y"
+#line 447 "test.y"
                         {
             //$$ = new SymbolInfo("float", "NON_TERMINAL");
             logStream << "At line no: " << line_count << " type_specifier: FLOAT" << "\n"  << endl;
             logStream << "float" << "\n"  << endl;
 
             type = "float";
+            type_final = type;
     }
-#line 1421 "test.tab.c"
+#line 1426 "test.tab.c"
     break;
 
   case 16: /* type_specifier: VOID  */
-#line 265 "test.y"
+#line 455 "test.y"
                        {
             //$$ = new SymbolInfo("void", "NON_TERMINAL");
             logStream << "At line no: " << line_count << " type_specifier: VOID" << "\n"  << endl;
             logStream << "void" << "\n"  << endl;
 
             type = "void";
+            type_final = type;
     }
-#line 1433 "test.tab.c"
+#line 1439 "test.tab.c"
+    break;
+
+  case 17: /* id: ID  */
+#line 465 "test.y"
+       {
+            //$$ = new SymbolInfo((string)$1->getName(), "NON_TERMINAL");
+            name = yyvsp[0]->getName();
+            name_final = name;
+    }
+#line 1449 "test.tab.c"
     break;
 
 
-#line 1437 "test.tab.c"
+#line 1453 "test.tab.c"
 
       default: break;
     }
@@ -1626,7 +1642,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 275 "test.y"
+#line 490 "test.y"
 
 
 
